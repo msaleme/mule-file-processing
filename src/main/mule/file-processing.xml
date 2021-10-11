@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp" xmlns:ftp="http://www.mulesoft.org/schema/mule/ftp"
+	xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/current/mule-ftp.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd">
+	<file:config name="File_Config" doc:name="File Config" doc:id="70f7871f-16c2-4efe-81e2-e4798327f9de" />
+	<ftp:config name="FTP_Config" doc:name="FTP Config" doc:id="b44270a3-f3d1-4af1-87eb-8c956df93d48" >
+		<ftp:connection host="localhost" />
+	</ftp:config>
+	<sftp:config name="SFTP_Config" doc:name="SFTP Config" doc:id="c09e0757-9109-45a4-b2c2-1fc5bce69998" >
+		<sftp:connection host="localhost" />
+	</sftp:config>
+	<flow name="file-processingFlow" doc:id="3c7ec406-0ef7-4c04-8ebd-16650e555823" >
+		<file:listener doc:name="On New or Updated File" doc:id="af6a2a60-977a-43ba-a837-f370553f3f86" config-ref="File_Config">
+			<scheduling-strategy >
+				<fixed-frequency />
+			</scheduling-strategy>
+		</file:listener>
+	</flow>
+	<flow name="file-processingFlow1" doc:id="ea9068d0-34b0-4101-afe7-8617169c9038" >
+		<ftp:listener doc:name="On New or Updated File" doc:id="41351da8-642d-4fd8-885b-7811ed04e2b9" config-ref="FTP_Config">
+			<scheduling-strategy >
+				<fixed-frequency />
+			</scheduling-strategy>
+		</ftp:listener>
+	</flow>
+	<flow name="file-processingFlow2" doc:id="8145c0b7-ba97-4b78-85f7-d3aa51bb42ad" >
+		<sftp:listener doc:name="On New or Updated File" doc:id="79218183-0aa8-44c8-9850-47e3d1302a93" config-ref="SFTP_Config">
+			<scheduling-strategy >
+				<fixed-frequency />
+			</scheduling-strategy>
+		</sftp:listener>
+	</flow>
+</mule>
